@@ -3,16 +3,23 @@ package com.andrzejressel.sjs.integrationtestjava;
 import pl.andrzejressel.sjs.serializator.GenerateSerializator;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @GenerateSerializator
 public class SimpleDTO {
     public final String a;
     public final List<Integer> b;
+    private final Map<String, List<Integer>> c;
 
-    public SimpleDTO(String a, List<Integer> b) {
+    public SimpleDTO(String a, List<Integer> b, Map<String, List<Integer>> c) {
         this.a = a;
         this.b = b;
+        this.c = c;
+    }
+
+    public Map<String, List<Integer>> getC() {
+        return c;
     }
 
     @Override

@@ -3,6 +3,7 @@ package pl.andrzejressel.sjs.processor
 import com.google.auto.service.AutoService
 import pl.andrzejressel.sjs.serializator.IntegerSerializator
 import pl.andrzejressel.sjs.serializator.ListSerializator
+import pl.andrzejressel.sjs.serializator.MapSerializator
 import pl.andrzejressel.sjs.serializator.StringSerializator
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
@@ -11,6 +12,7 @@ import javax.lang.model.element.ElementKind.*
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.element.TypeElement
 import javax.lang.model.type.DeclaredType
+import javax.lang.model.type.WildcardType
 import javax.tools.Diagnostic.Kind.ERROR
 
 @SupportedAnnotationTypes("pl.andrzejressel.sjs.serializator.GenerateSerializator")
@@ -102,7 +104,15 @@ class BuilderProcessor : AbstractProcessor() {
         return if (genericParameters.isEmpty()) {
             "$serializator.INSTANCE"
         } else {
-            val genericParametersSerializator = genericParameters.map { createSerializator(it as DeclaredType) }
+            val genericParametersSerializator = genericParameters.map {
+                val dt = when(it) {
+                    is DeclaredType -> it
+                    //TODO: Test List<List<List<List<....>>>>
+                    is WildcardType -> it.extendsBound as DeclaredType
+                    else -> TODO("Unhandled TypeMirror type: $it")
+                }
+                createSerializator(dt)
+            }
             "new ${serializator}<>(${genericParametersSerializator.joinToString()})"
         }
     }
@@ -116,11 +126,12 @@ class BuilderProcessor : AbstractProcessor() {
             "java.lang.Integer" -> IntegerSerializator::class.simpleName
             "java.lang.String" -> StringSerializator::class.simpleName
             "java.util.List" -> ListSerializator::class.simpleName
+            "java.util.Map" -> MapSerializator::class.simpleName
             else -> null
         }
     }
 
-    private fun printError(message: String, element: Element): Unit {
-        return processingEnv.messager.printMessage(ERROR, message, element)
+    private fun printError(message: String, element: Element) {
+        processingEnv.messager.printMessage(ERROR, message, element)
     }
 }
