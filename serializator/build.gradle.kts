@@ -1,3 +1,4 @@
+import java.net.URI
 import java.nio.file.Files
 import kotlin.io.path.createDirectories
 
@@ -149,6 +150,16 @@ publishing {
             groupId = mvnGroupId
             artifactId = mvnArtifactId
             version = mvnVersion
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = URI.create("https://maven.pkg.github.com/andrzejressel/simple-java-serialization")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
         }
     }
 }
