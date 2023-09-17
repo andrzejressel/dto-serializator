@@ -1,0 +1,37 @@
+shared:
+  my_ci: &common_checks
+    - check-success="Code checks"
+    - check-success="CI / build (11, ubuntu-latest)"
+    - check-success="CI / build (11, windows-latest)"
+    - check-success="CI / build (11, macos-latest)"
+    - check-success="CI / build (17, ubuntu-latest)"
+    - check-success="CI / build (17, windows-latest)"
+    - check-success="CI / build (17, macos-latest)"
+
+queue_rules:
+  - name: default
+    conditions: *common_checks
+
+pull_request_rules:
+  - name: automatic merge for dependency updates
+    conditions:
+      - or:
+        - author=4ndrz3j-r35531[bot]
+        - author=dependabot
+    actions:
+      label:
+        add:
+          - ready-to-merge
+  - name: automatic merge for main when CI passes
+    conditions:
+      - base=main
+      - label=ready-to-merge
+      - and: *common_checks
+    actions:
+      queue:
+        name: default
+  - name: delete head branch after merge
+    conditions:
+      - merged
+    actions:
+      delete_head_branch:
