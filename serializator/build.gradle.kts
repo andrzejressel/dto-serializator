@@ -1,10 +1,10 @@
-import java.net.URI
 import java.nio.file.Files
 import kotlin.io.path.createDirectories
 
 plugins {
     `java-library`
     `maven-publish`
+    jacoco
 }
 
 repositories {
@@ -162,4 +162,15 @@ publishing {
             }
         }
     }
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.required = true
+        html.required = false
+    }
+}
+
+tasks.named("check") {
+    dependsOn("jacocoTestReport")
 }

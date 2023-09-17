@@ -1,9 +1,8 @@
-import java.net.URI
-
 plugins {
     kotlin("jvm")
     kotlin("kapt")
     `maven-publish`
+    jacoco
 }
 
 repositories {
@@ -48,4 +47,15 @@ publishing {
             }
         }
     }
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.required = true
+        html.required = false
+    }
+}
+
+tasks.named("check") {
+    dependsOn("jacocoTestReport")
 }

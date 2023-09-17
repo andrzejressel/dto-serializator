@@ -27,7 +27,7 @@ jobs:
     - name: Build with Gradle
       uses: gradle/gradle-build-action@v2.8.0
       with:
-        arguments: build
+        arguments: check
     - name: Upload coverage reports to Codecov
       if: matrix.os == 'ubuntu-latest' && matrix.java_version == '17'
       uses: codecov/codecov-action@v3
