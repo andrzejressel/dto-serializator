@@ -1,6 +1,5 @@
 shared:
   my_ci: &common_checks
-    - check-success="Code checks"
     - check-success="CI / build (11, ubuntu-latest)"
     - check-success="CI / build (11, windows-latest)"
     - check-success="CI / build (11, macos-latest)"
