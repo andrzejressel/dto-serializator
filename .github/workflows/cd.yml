@@ -1,12 +1,8 @@
 name: CD
 
 on:
-  push:
-    branches: [ "cd" ]
-
-#on:
-#  release:
-#    types: [created]
+  release:
+    types: [created]
 
 permissions:
   contents: read
