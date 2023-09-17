@@ -47,8 +47,9 @@ dependencies {
 ## Serializing/deserializing
 
 ```java
+import pl.andrzejressel.sjs.serializator.GenerateSerializator;
 
-@pl.andrzejressel.sjs.serializator.GenerateSerializator
+@GenerateSerializator
 class MyClass {
     ...
 }
