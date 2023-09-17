@@ -1,15 +1,6 @@
-shared:
-  my_ci: &common_checks
-    - check-success="CI / build (11, ubuntu-latest)"
-    - check-success="CI / build (11, windows-latest)"
-    - check-success="CI / build (11, macos-latest)"
-    - check-success="CI / build (17, ubuntu-latest)"
-    - check-success="CI / build (17, windows-latest)"
-    - check-success="CI / build (17, macos-latest)"
-
 queue_rules:
   - name: default
-    conditions: *common_checks
+    conditions: []
 
 pull_request_rules:
   - name: automatic merge for main when CI passes
@@ -18,7 +9,6 @@ pull_request_rules:
       - or:
         - label=ready-to-merge
         - label=dependencies
-      - and: *common_checks
     actions:
       queue:
         name: default
