@@ -13,19 +13,12 @@ queue_rules:
     conditions: *common_checks
 
 pull_request_rules:
-  - name: automatic merge for dependency updates
-    conditions:
-      - or:
-        - author=4ndrz3j-r35531[bot]
-        - author=dependabot
-    actions:
-      label:
-        add:
-          - ready-to-merge
   - name: automatic merge for main when CI passes
     conditions:
       - base=main
-      - label=ready-to-merge
+      - or:
+        - label=ready-to-merge
+        - label=dependencies
       - and: *common_checks
     actions:
       queue:
