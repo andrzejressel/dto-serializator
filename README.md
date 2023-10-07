@@ -9,27 +9,6 @@
 
 ## Setting up Gradle
 
-### Kotlin
-
-```kotlin
-plugins {
-    kotlin("kapt")
-}
-
-repositories {
-    maven {
-        name = "SJS"
-        url = uri("https://maven.pkg.github.com/andrzejressel/sjs")
-    }
-}
-
-dependencies {
-    implementation("pl.andrzejressel.sjs:serializator:<version>")
-    kapt("pl.andrzejressel.sjs:processor:<version>") // When using Kotlin
-}
-```
-### Java
-
 ```kotlin
 repositories {
     maven {
@@ -40,7 +19,7 @@ repositories {
 
 dependencies {
     implementation("pl.andrzejressel.sjs:serializator:<version>")
-    annotationProcessor("pl.andrzejressel.sjs:processor:<version>") // When using Java
+    annotationProcessor("pl.andrzejressel.sjs:processor:<version>")
 }
 ```
 
