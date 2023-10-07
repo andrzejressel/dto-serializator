@@ -70,7 +70,7 @@ val generateBoilerplate by tasks.registering {
                 .map{c -> "var ${c.lowercase()} = serializators.${c.lowercase()}.serialize(deconstructed.${c.lowercase()});" }
                 .joinToString(separator = "\n") {"|    $it"}
             val deconstructorAddToBbs = availableLetters
-                .map { c -> "bbs.addAll(${c.lowercase()});" }
+                .map { c -> "bbs.add(${c.lowercase()});" }
                 .joinToString(separator = "\n") {"|    $it"}
             val relatedTuple = availableLetters.joinToString { c -> c.uppercase() }
             val serializatorsTuple = availableLetters.joinToString { c -> "Serializator<${c.uppercase()}>" }
@@ -91,7 +91,7 @@ val generateBoilerplate by tasks.registering {
                 |import java.util.List;
                 |import java.util.function.Function;
                 |
-                |public class Map${i}Serializator<$genericClasses> implements Serializator<RET> {
+                |public class Map${i}Serializator<$genericClasses> implements AppendSerializator<RET> {
                 |
                 |   private final Tuple${i}<$serializatorsTuple> serializators;
                 |   private final Function<RET, Tuple${i}<$relatedTuple>> deconstruct;
@@ -108,7 +108,7 @@ val generateBoilerplate by tasks.registering {
                 |   }
                 |
                 |  @Override
-                |  public @NotNull List<ByteBuffer> serialize(RET ret) {
+                |  public @NotNull List<ByteBuffer> serializeToList(RET ret) {
                 |    var deconstructed = deconstruct.apply(ret);
                      $deconstructorAssignments
                 |    var bbs = new ArrayList<ByteBuffer>();

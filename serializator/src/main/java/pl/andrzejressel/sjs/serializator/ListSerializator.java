@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ListSerializator<T> implements Serializator<List<T>> {
+public class ListSerializator<T> implements AppendSerializator<List<T>> {
     private final Serializator<T> instance;
 
     public ListSerializator(Serializator<T> instance) {
@@ -15,14 +15,14 @@ public class ListSerializator<T> implements Serializator<List<T>> {
     }
 
     @Override
-    public @NotNull List<ByteBuffer> serialize(List<T> t) {
+    public @NotNull List<ByteBuffer> serializeToList(List<T> t) {
         var sizeBB = ByteBuffer.allocate(4);
         sizeBB.putInt(t.size());
 
         var elements = t.stream().map(instance::serialize).collect(Collectors.toList());
         var finalBBs = new ArrayList<ByteBuffer>();
         finalBBs.add(sizeBB);
-        elements.forEach(finalBBs::addAll);
+        finalBBs.addAll(elements);
         return finalBBs;
     }
 

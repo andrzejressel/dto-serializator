@@ -7,8 +7,8 @@ abstract class AbstractSerializatorTest<T> {
     protected abstract val serializator: Serializator<T>
     protected fun performTest(value: T) {
         val serializator = serializator
-        val result = serializator.serializeFlatten(value)
+        val result = serializator.serialize(value)
         Assertions.assertThat(result.hasRemaining()).isFalse()
-        Assertions.assertThat(value).isEqualTo(serializator.deserialize(result.flip()))
+        Assertions.assertThat(value).isEqualTo(serializator.deserialize(result.rewind()))
     }
 }

@@ -56,7 +56,6 @@ class MyClass {
 
 
 var serializator = MyClassSerializator.INSTANCE;
-var serialized = serializator.serializeFlatten(new MyClass(...));
-// If you want to reuse `serialized` bytebuffer you have to call `flip()` on it
+var serialized = serializator.serialize(new MyClass(...)).rewind();
 var obj = serializator.deserialize(serialized);
 ```

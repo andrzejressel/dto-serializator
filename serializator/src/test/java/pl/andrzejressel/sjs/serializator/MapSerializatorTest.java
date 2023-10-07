@@ -12,8 +12,6 @@ class MapSerializatorTest extends AbstractSerializatorTest<Map<String, Integer>>
         return new MapSerializator<>(StringSerializator.INSTANCE, IntegerSerializator.INSTANCE);
     }
 
-
-
     @Property
     public void test(@ForAll Map<String, Integer> value) {
         performTest(value);

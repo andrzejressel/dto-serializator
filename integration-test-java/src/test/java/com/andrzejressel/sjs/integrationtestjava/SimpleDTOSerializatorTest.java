@@ -16,7 +16,12 @@ class SimpleDTOSerializatorTest extends AbstractSerializatorTest<SimpleDTO> {
 
     @Property
     public void test(@ForAll String val1, @ForAll List<Integer> val2, @ForAll Map<String, List<Integer>> val3) {
-        performTest(new SimpleDTO(val1, val2, val3));
+        performTest(new SimpleDTO(
+                val1,
+                val2,
+                val3,
+                List.of(List.of(List.of(List.of("abc"), List.of("123")), List.of(List.of("ABC"), List.of("!@#"))))
+        ));
     }
 
 }

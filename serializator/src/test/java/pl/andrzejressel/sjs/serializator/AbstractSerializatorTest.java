@@ -9,9 +9,9 @@ abstract class AbstractSerializatorTest<T> {
 
     protected void performTest(T value) {
         var serializator = getSerializator();
-        ByteBuffer result = serializator.serializeFlatten(value);
+        ByteBuffer result = serializator.serialize(value);
         assertThat(result.hasRemaining()).isFalse();
-        assertThat(value).isEqualTo(serializator.deserialize(result.flip()));
+        assertThat(value).isEqualTo(serializator.deserialize(result.rewind()));
     }
 
 }

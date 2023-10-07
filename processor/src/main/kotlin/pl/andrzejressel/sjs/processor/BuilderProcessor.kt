@@ -58,10 +58,11 @@ class BuilderProcessor : AbstractProcessor() {
                     val getter = clz.enclosedElements.firstOrNull { it.kind == METHOD && it.toString() == getterName }
                     return if (getter != null) {
                         getterName
-                    } else {
+                    } else if (field != null) {
                         field.toString()
+                    } else {
+                        throw RuntimeException("Cannot find getter or field for [${name}]")
                     }
-                    //TODO: Add error
                 }
 
                 val alphabet = ('a'..'z').take(serializator.size)
@@ -107,9 +108,8 @@ class BuilderProcessor : AbstractProcessor() {
             val genericParametersSerializator = genericParameters.map {
                 val dt = when(it) {
                     is DeclaredType -> it
-                    //TODO: Test List<List<List<List<....>>>>
                     is WildcardType -> it.extendsBound as DeclaredType
-                    else -> TODO("Unhandled TypeMirror type: $it")
+                    else -> throw RuntimeException("Unhandled TypeMirror type: $it")
                 }
                 createSerializator(dt)
             }

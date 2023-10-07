@@ -12,10 +12,13 @@ public class SimpleDTO {
     public final List<Integer> b;
     private final Map<String, List<Integer>> c;
 
-    public SimpleDTO(String a, List<Integer> b, Map<String, List<Integer>> c) {
+    public final List<List<List<List<String>>>> d;
+
+    public SimpleDTO(String a, List<Integer> b, Map<String, List<Integer>> c, List<List<List<List<String>>>> d) {
         this.a = a;
         this.b = b;
         this.c = c;
+        this.d = d;
     }
 
     public Map<String, List<Integer>> getC() {

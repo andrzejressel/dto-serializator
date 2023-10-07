@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapSerializator<K, V> implements Serializator<Map<K, V>> {
+public class MapSerializator<K, V> implements AppendSerializator<Map<K, V>> {
     private final Serializator<K> keySerializator;
     private final Serializator<V> valueSerializator;
 
@@ -18,15 +18,15 @@ public class MapSerializator<K, V> implements Serializator<Map<K, V>> {
     }
 
     @Override
-    public @NotNull List<ByteBuffer> serialize(Map<K, V> m) {
+    public @NotNull List<ByteBuffer> serializeToList(Map<K, V> m) {
         var sizeBB = ByteBuffer.allocate(4);
         sizeBB.putInt(m.size());
-        var finalBBs = new ArrayList<ByteBuffer>();
+        var finalBBs = new ArrayList<ByteBuffer>(m.size() * 2);
         finalBBs.add(sizeBB);
 
         m.forEach((k, v) -> {
-            finalBBs.addAll(keySerializator.serialize(k));
-            finalBBs.addAll(valueSerializator.serialize(v));
+            finalBBs.add(keySerializator.serialize(k));
+            finalBBs.add(valueSerializator.serialize(v));
         });
 
         return finalBBs;
