@@ -1,4 +1,4 @@
-# Simple Java Serialization (SJS)
+# DTO Serializator
 ![GitHub release (with filter)](https://img.shields.io/github/v/release/andrzejressel/simple-java-serialization)
 
 # Main points
@@ -10,23 +10,16 @@
 ## Setting up Gradle
 
 ```kotlin
-repositories {
-    maven {
-        name = "SJS"
-        url = uri("https://maven.pkg.github.com/andrzejressel/sjs")
-    }
-}
-
 dependencies {
-    implementation("pl.andrzejressel.sjs:serializator:<version>")
-    annotationProcessor("pl.andrzejressel.sjs:processor:<version>")
+    implementation("pl.andrzejressel.dto:serializator:<version>")
+    annotationProcessor("pl.andrzejressel.dto:processor:<version>")
 }
 ```
 
 ## Serializing/deserializing
 
 ```java
-import pl.andrzejressel.sjs.serializator.GenerateSerializator;
+import pl.andrzejressel.dto.serializator.GenerateSerializator;
 
 @GenerateSerializator
 class MyClass {

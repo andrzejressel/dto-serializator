@@ -1,7 +1,7 @@
 import com.palantir.gradle.gitversion.VersionDetails
 import groovy.lang.Closure
 
-group = "pl.andrzejressel.sjs"
+group = "pl.andrzejressel.dto"
 
 plugins {
     id("com.palantir.git-version") version "3.0.0"

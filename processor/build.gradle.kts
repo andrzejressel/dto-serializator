@@ -27,6 +27,11 @@ val mvnGroupId = parent!!.group.toString()
 val mvnArtifactId = name
 val mvnVersion = parent!!.version.toString()
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven") {

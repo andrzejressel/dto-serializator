@@ -24,12 +24,18 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 val generateBoilerplate by tasks.registering {
     outputs.dir(layout.buildDirectory.dir("generated/sources/serializators"))
     doLast {
 
         val dir = outputs.files.single().toPath()
-        val classDir = dir.resolve("pl/andrzejressel/sjs/serializator")
+        val classDir = dir.resolve("pl/andrzejressel/dto/serializator")
             .createDirectories()
         val alphabet = 'A'..'Z'
 
@@ -49,7 +55,7 @@ val generateBoilerplate by tasks.registering {
             Files.createDirectories(dir)
 
             val clz = """
-                |package pl.andrzejressel.sjs.serializator;
+                |package pl.andrzejressel.dto.serializator;
                 
                 |public class Tuple${i}<$genericClasses> {
                 $fields
@@ -82,7 +88,7 @@ val generateBoilerplate by tasks.registering {
             Files.createDirectories(dir)
 
             val clz = """
-                |package pl.andrzejressel.sjs.serializator;
+                |package pl.andrzejressel.dto.serializator;
                 |
                 |import org.jetbrains.annotations.NotNull;
                 |
