@@ -13,7 +13,14 @@ val versionDetails: Closure<VersionDetails> by extra
 val details = versionDetails()
 
 version = if(details.isCleanTag) {
-    details.lastTag.removePrefix("v")
+    val lastTag = details.lastTag
+    if (lastTag.startsWith("v")) {
+        //Release
+        details.lastTag.removePrefix("v")
+    } else {
+        //main
+        "main-SNAPSHOT"
+    }
 } else {
-    "main-SNAPSHOT"
+    "DEV"
 }
