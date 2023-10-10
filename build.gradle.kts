@@ -15,5 +15,5 @@ val details = versionDetails()
 version = if(details.isCleanTag) {
     details.lastTag.removePrefix("v")
 } else {
-    "DEV"
+    "main-SNAPSHOT"
 }
