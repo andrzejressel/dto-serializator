@@ -13,11 +13,11 @@ repositories {
 }
 
 dependencies {
-    testImplementation("net.jqwik:jqwik:1.8.1")
+    testImplementation("net.jqwik:jqwik:1.8.2")
     implementation("org.jetbrains:annotations:24.1.0")
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    testImplementation("net.jqwik:jqwik:1.8.1")
+    testImplementation("net.jqwik:jqwik:1.8.2")
     testImplementation("org.assertj:assertj-core:3.24.2")
 }
 
