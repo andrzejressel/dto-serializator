@@ -5,7 +5,7 @@ group = "pl.andrzejressel.dto"
 
 plugins {
     id("com.palantir.git-version") version "3.0.0"
-    kotlin("jvm") version "1.9.22" apply false
+    kotlin("jvm") version "1.9.23" apply false
     id("com.vanniktech.maven.publish") version "0.26.0" apply false
 }
 
